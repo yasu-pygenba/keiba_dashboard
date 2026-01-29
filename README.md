@@ -1,4 +1,4 @@
-Keiba Dashboard 
+## Keiba Dashboard 
 
 競馬予測AIの [成績検証・可視化] を目的とした個人開発プロジェクトです。
 
