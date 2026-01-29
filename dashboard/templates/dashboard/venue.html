@@ -1,0 +1,46 @@
+<h1>競馬場別 成績</h1>
+
+<form method="get">
+    <label>日付：</label>
+    <select name="d">
+        <option value="">（全期間）</option>
+        {% for d in dates %}
+            <option value="{{ d }}" {% if selected_date == d %}selected{% endif %}>{{ d }}</option>
+        {% endfor %}
+    </select>
+
+    <label>競馬場：</label>
+    <select name="v">
+        <option value="">（全競馬場）</option>
+        {% for v in venues %}
+            <option value="{{ v }}" {% if selected_venue == v %}selected{% endif %}>{{ v }}</option>
+        {% endfor %}
+    </select>
+
+    <label>印：</label>
+    <select name="axis">
+        {% for a in axis_cols %}
+            <option value="{{ a }}" {% if selected_axis == a %}selected{% endif %}>{{ a }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">表示</button>
+</form>
+
+<table border="1" cellpadding="6">
+    <tr>
+        <th>券種</th><th>投資</th><th>払戻</th><th>収支</th><th>回収率%</th><th>的中数</th><th>購入数</th><th>的中率%</th>
+    </tr>
+    {% for r in rows %}
+    <tr>
+        <td>{{ r.bet_type }}</td>
+        <td>{{ r.total_bet_yen }}</td>
+        <td>{{ r.total_return_yen }}</td>
+        <td>{{ r.profit_yen }}</td>
+        <td>{{ r.roi_pct }}</td>
+        <td>{{ r.n_bets }}</td>
+        <td>{{ r.n_hits }}</td>
+        <td>{{ r.hit_rate_pct }}</td>
+    </tr>
+    {% endfor %}
+</table>

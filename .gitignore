@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+
+# data（成績データは載せない）
+data/
+*.pkl
+*.csv
+
+# OS
+.DS_Store
