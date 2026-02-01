@@ -1,19 +1,28 @@
 <h1>競馬場別 成績</h1>
 
 <form method="get">
-    <label>日付：</label>
-    <select name="d">
-        <option value="">（全期間）</option>
-        {% for d in dates %}
-            <option value="{{ d }}" {% if selected_date == d %}selected{% endif %}>{{ d }}</option>
-        {% endfor %}
-    </select>
+    
 
     <label>競馬場：</label>
     <select name="v">
-        <option value="">（全競馬場）</option>
+        <option value="">全場</option>
         {% for v in venues %}
             <option value="{{ v }}" {% if selected_venue == v %}selected{% endif %}>{{ v }}</option>
+        {% endfor %}
+    </select>
+
+    <label>コース：</label>
+    <select name="s">
+        <option value="">全コース</option>
+        <option value="芝" {% if selected_surface == '芝' %}selected{% endif %}>芝</option>
+        <option value="ダ" {% if selected_surface == 'ダ' %}selected{% endif %}>ダート</option>
+    </select>
+
+    <label>距離：</label>
+    <select name="dist">
+        <option value="">全距離</option>
+        {% for dist in distances %}
+            <option value="{{ dist }}" {% if selected_distance == dist|stringformat:"s" %}selected{% endif %}>{{ dist }}</option>
         {% endfor %}
     </select>
 
@@ -21,6 +30,22 @@
     <select name="axis">
         {% for a in axis_cols %}
             <option value="{{ a }}" {% if selected_axis == a %}selected{% endif %}>{{ a }}</option>
+        {% endfor %}
+    </select>
+
+    <label>年：</label>
+    <select name="y">
+        <option value="">全期間</option>
+        {% for y in years %}
+            <option value="{{ y }}" {% if selected_year == y %}selected{% endif %}>{{ y }}</option>
+        {% endfor %}
+    </select>
+
+    <label>日付：</label>
+    <select name="d">
+        <option value="">（年の合計）</option>
+        {% for d in dates %}
+            <option value="{{ d }}" {% if selected_date == d %}selected{% endif %}>{{ d }}</option>
         {% endfor %}
     </select>
 
