@@ -86,3 +86,4 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS(f"{pkl_path.name}: {len(objs)} rows"))
 
         self.stdout.write(self.style.SUCCESS(f"Done. total_rows={total_rows}, dates={sorted(set(imported_dates))}"))
+
