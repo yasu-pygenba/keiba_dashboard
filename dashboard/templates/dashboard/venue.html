@@ -49,6 +49,15 @@
         {% endfor %}
     </select>
 
+    <div>
+        <label>グラフ表示：</label>
+        <select id="chartMode">
+            <option value="both">ROI＋的中率</option>
+            <option value="roi">ROIのみ</option>
+            <option value="hit">的中率のみ</option>
+        </select>
+    </div>
+
     <button type="submit">表示</button>
 </form>
 
@@ -104,21 +113,13 @@ const hitData = rows.map(r => r.hit_rate_pct);
 
 const ctx = document.getElementById("roiChart").getContext("2d");
 
-new Chart(ctx, {
-    type: "bar",
+let chart = new Chart(ctx, {
+  type: "bar",
   data: {
     labels,
     datasets: [
-      {
-        label: "的中率 (%)",
-        data: hitData,
-        yAxisID: "y_hit",
-      },
-      {
-        label: "ROI (%)",
-        data: roiData,
-        yAxisID: "y_roi",
-      },
+      { label: "ROI (%)", data: roiData, yAxisID: "y_roi" },
+      { label: "的中率 (%)", data: hitData, yAxisID: "y_hit" }
     ]
   },
   options: {
@@ -135,10 +136,37 @@ new Chart(ctx, {
         beginAtZero: true,
         max: 200,
         position: "right",
-        grid: { drawOnChartArea: false }, // 右軸のグリッドを消して見やすく
+        grid: { drawOnChartArea: false },
         ticks: { callback: v => v + "%" }
       }
     }
   }
 });
+
+
+document.getElementById("chartMode").addEventListener("change", e => {
+  const mode = e.target.value;
+
+  chart.data.datasets = [];
+
+  if (mode === "roi" || mode === "both") {
+    chart.data.datasets.push({
+      label: "ROI (%)",
+      data: roiData,
+      yAxisID: "y_roi"
+    });
+  }
+
+  if (mode === "hit" || mode === "both") {
+    chart.data.datasets.push({
+      label: "的中率 (%)",
+      data: hitData,
+      yAxisID: "y_hit"
+    });
+  }
+
+  chart.update();
+});
+
+
 </script>
