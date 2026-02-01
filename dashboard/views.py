@@ -139,4 +139,6 @@ def venue_dashboard(request):
         "selected_distance": distance,
     }
 
+    context['chart_rows'] = rows
+
     return render(request, "dashboard/venue.html", context)

@@ -69,3 +69,76 @@
     </tr>
     {% endfor %}
 </table>
+
+<style>
+.chart-wrapper {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.chart-box {
+  width: 420px;
+  height: 260px;
+}
+</style>
+
+
+<!-- グラフ -->
+<h3>券種別ROI(%)</h3>
+<div class="chart-wrapper">
+    <div class="chart-box">
+        <canvas id="roiChart" height="120"></canvas>
+    </div>
+</div>
+
+{{ chart_rows|json_script:"chart-rows" }}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const rows = JSON.parse(document.getElementById("chart-rows").textContent);
+
+const labels = rows.map(r => r.bet_type);
+const roiData = rows.map(r => r.roi_pct);
+const hitData = rows.map(r => r.hit_rate_pct);
+
+const ctx = document.getElementById("roiChart").getContext("2d");
+
+new Chart(ctx, {
+    type: "bar",
+  data: {
+    labels,
+    datasets: [
+      {
+        label: "的中率 (%)",
+        data: hitData,
+        yAxisID: "y_hit",
+      },
+      {
+        label: "ROI (%)",
+        data: roiData,
+        yAxisID: "y_roi",
+      },
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y_hit: {
+        beginAtZero: true,
+        max: 100,
+        position: "left",
+        ticks: { callback: v => v + "%" }
+      },
+      y_roi: {
+        beginAtZero: true,
+        max: 200,
+        position: "right",
+        grid: { drawOnChartArea: false }, // 右軸のグリッドを消して見やすく
+        ticks: { callback: v => v + "%" }
+      }
+    }
+  }
+});
+</script>
