@@ -18,7 +18,7 @@
 
 ---
 
-## 主な機能（v1.2） 
+## 主な機能（v1.3） 
 
 - レース単位の成績データ管理
 - 条件別の成績集計
@@ -36,9 +36,15 @@
 - グラフ表示
   - ROI%
   - 的中率%
+  - 切替機能
 ---
 
 ## 技術スタック
 
 - Python
 - Django
+
+## Dashboard Preview
+
+![Dashboard Screenshot](screenshots/dashboard_v1.3.png)
+
